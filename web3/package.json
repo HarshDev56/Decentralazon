@@ -23,5 +23,8 @@
     "solhint": "^3.4.1",
     "solidity-coverage": "^0.8.4",
     "typechain": "^8.1.0"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security"
   }
 }
