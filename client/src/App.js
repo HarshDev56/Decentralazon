@@ -10,6 +10,7 @@ function App() {
   const [provider, setProvider] = useState(null);
   const [account, setAccount] = useState(null);
   const [decentralazon, setDecentralazon] = useState(null);
+  const [owner, setOwner] = useState(null);
 
   const loadBlockchainData = async () => {
     const provider = new ethers.BrowserProvider(window.ethereum);
@@ -25,6 +26,8 @@ function App() {
       provider
     );
     setDecentralazon(Decentralazon);
+    const owner = await Decentralazon.owner();
+    setOwner(owner);
   };
 
   useEffect(() => {
@@ -33,7 +36,7 @@ function App() {
 
   return (
     <div>
-      <Navigation account={account} setAccount={setAccount} />
+      <Navigation account={account} setAccount={setAccount} owner={owner} />
       <h2>Welcome to Decentralazon</h2>
     </div>
   );

@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 
-const Navigation = ({ account, setAccount }) => {
+const Navigation = ({ account, setAccount, owner }) => {
   const connectHandler = async () => {
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
@@ -14,6 +14,7 @@ const Navigation = ({ account, setAccount }) => {
         <h1>Decentralazon</h1>
       </div>
       <input type="text" className="nav__search" />
+
       {account ? (
         <button type="Button" className="nav__connect">
           {account.slice(0, 6) + "..." + account.slice(38, 42)}
@@ -23,6 +24,7 @@ const Navigation = ({ account, setAccount }) => {
           Connect
         </button>
       )}
+
       <ul className="nav__links">
         <li>
           <a href="#Clothing & Jewelry">Clothing & Jewelry</a>
