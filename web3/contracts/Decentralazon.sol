@@ -8,6 +8,7 @@ contract Decentralazon {
         uint256 id;
         string name;
         string category;
+        string description;
         string image;
         uint256 cost;
         uint256 rating;
@@ -42,6 +43,7 @@ contract Decentralazon {
         uint256 _id,
         string memory _name,
         string memory _category,
+        string memory _description,
         string memory _image,
         uint256 _cost,
         uint256 _rating,
@@ -52,6 +54,7 @@ contract Decentralazon {
             _id,
             _name,
             _category,
+            _description,
             _image,
             _cost,
             _rating,

@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
-
-const Navigation = ({ account, setAccount, owner }) => {
+import { options } from "../constants";
+const Navigation = ({ account, setAccount, owner, onUploadClick }) => {
   const connectHandler = async () => {
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
@@ -24,17 +24,18 @@ const Navigation = ({ account, setAccount, owner }) => {
           Connect
         </button>
       )}
+      {owner && (
+        <button type="Button" className="nav__connect" onClick={onUploadClick}>
+          Upload
+        </button>
+      )}
 
       <ul className="nav__links">
-        <li>
-          <a href="#Clothing & Jewelry">Clothing & Jewelry</a>
-        </li>
-        <li>
-          <a href="#Electronics & Gadgets">Electronics & Gadgets</a>
-        </li>
-        <li>
-          <a href="#Toys & Gaming">Toys & Gaming</a>
-        </li>
+        {options.map((e) => (
+          <li>
+            <a href={`#${e.label}`}>{e.label}</a>
+          </li>
+        ))}
       </ul>
     </nav>
   );

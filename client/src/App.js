@@ -5,12 +5,14 @@ import { abi, contractAddresses } from "./constants";
 import Navigation from "./components/Navigation";
 import Section from "./components/Section";
 import Product from "./components/Product";
+import UploadProduct from "./components/UploadProduct";
 
 function App() {
   const [provider, setProvider] = useState(null);
   const [account, setAccount] = useState(null);
   const [decentralazon, setDecentralazon] = useState(null);
   const [owner, setOwner] = useState(null);
+  const [upload, setUpload] = useState(false);
 
   const loadBlockchainData = async () => {
     const provider = new ethers.BrowserProvider(window.ethereum);
@@ -29,6 +31,12 @@ function App() {
     const owner = await Decentralazon.owner();
     setOwner(owner);
   };
+  const handleUploadClick = () => {
+    setUpload(true);
+  };
+  const toggleUpload = () => {
+    upload ? setUpload(false) : setUpload(true);
+  };
 
   useEffect(() => {
     loadBlockchainData();
@@ -36,8 +44,20 @@ function App() {
 
   return (
     <div>
-      <Navigation account={account} setAccount={setAccount} owner={owner} />
+      <Navigation
+        account={account}
+        setAccount={setAccount}
+        owner={owner}
+        onUploadClick={handleUploadClick}
+      />
       <h2>Welcome to Decentralazon</h2>
+      {upload && (
+        <UploadProduct
+          toggleUpload={toggleUpload}
+          decentralazon={decentralazon}
+          provider={provider}
+        />
+      )}
     </div>
   );
 }
