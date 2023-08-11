@@ -12,9 +12,9 @@ const UploadProduct = ({ toggleUpload, decentralazon, provider }) => {
     category: "",
     description: "",
     image: "",
-    price: "",
-    rating: "",
-    stock: "",
+    price: 0,
+    rating: 0,
+    stock: 0,
   });
   const [targetm, setTargetm] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -38,11 +38,27 @@ const UploadProduct = ({ toggleUpload, decentralazon, provider }) => {
       (errorMessageStock == undefined || errorMessageStock.length <= 0)
     ) {
       setIsLoading(true);
-      console.log("EYEY");
+      try {
+        const signer = await provider.getSigner();
+        const transaction = await decentralazon
+          .connect(signer)
+          .list(
+            form.name,
+            form.category,
+            form.description,
+            form.image,
+            targetm,
+            form.rating,
+            form.stock
+          );
+        await transaction.wait();
+        setIsLoading(false);
+        toggleUpload = false;
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+      }
 
-      const signer = await provider.getSigner();
-      const transaction = await decentralazon.connect(signer).list(1, form);
-      await transaction.wait();
       // await createCampaign({
       //   onSuccess: handleSucess,
       //   onError: (error) =>
@@ -50,7 +66,6 @@ const UploadProduct = ({ toggleUpload, decentralazon, provider }) => {
       //       `Your transaction failed.⚠️ Please try again. 🔁 Error: ${error.message}`
       //     ),
       // });
-      setIsLoading(false);
     }
   };
   const handleFormFeildChange = (fieldName, e) => {
@@ -66,6 +81,7 @@ const UploadProduct = ({ toggleUpload, decentralazon, provider }) => {
       setErrorMessageCategory("");
       setHasError(false);
     }
+    setForm({ ...form, ["category"]: event.target.value.toString() });
     await setSelectedOption(event.target.value.toString());
   };
   return (

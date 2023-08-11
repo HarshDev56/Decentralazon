@@ -24,7 +24,7 @@ const Navigation = ({ account, setAccount, owner, onUploadClick }) => {
           Connect
         </button>
       )}
-      {owner && (
+      {owner == account && (
         <button type="Button" className="nav__connect" onClick={onUploadClick}>
           Upload
         </button>

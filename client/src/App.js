@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { abi, contractAddresses } from "./constants";
+import { abi, contractAddresses, options } from "./constants";
 // Components
 import Navigation from "./components/Navigation";
 import Section from "./components/Section";
@@ -8,11 +8,13 @@ import Product from "./components/Product";
 import UploadProduct from "./components/UploadProduct";
 
 function App() {
+  let item;
   const [provider, setProvider] = useState(null);
   const [account, setAccount] = useState(null);
   const [decentralazon, setDecentralazon] = useState(null);
   const [owner, setOwner] = useState(null);
   const [upload, setUpload] = useState(false);
+  const [itemsab, setItemsab] = useState(null);
 
   const loadBlockchainData = async () => {
     const provider = new ethers.BrowserProvider(window.ethereum);
@@ -30,6 +32,14 @@ function App() {
     setDecentralazon(Decentralazon);
     const owner = await Decentralazon.owner();
     setOwner(owner);
+    const productCount = await Decentralazon.getTotalProduct();
+    const items = [];
+    console.log("procuct " + productCount);
+    for (let index = 0; index < productCount; index++) {
+      item = await Decentralazon.items(index + 1);
+      items.push(item);
+    }
+    setItemsab(items);
   };
   const handleUploadClick = () => {
     setUpload(true);
@@ -51,6 +61,13 @@ function App() {
         onUploadClick={handleUploadClick}
       />
       <h2>Welcome to Decentralazon</h2>
+      {itemsab != null && itemsab.length > 0 && (
+        <Section
+          items={itemsab}
+          // togglePop={togglePop}
+        />
+      )}
+
       {upload && (
         <UploadProduct
           toggleUpload={toggleUpload}

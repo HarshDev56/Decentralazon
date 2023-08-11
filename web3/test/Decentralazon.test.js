@@ -47,7 +47,7 @@ const STOCK = 5;
         beforeEach(async () => {
           transaction = await decentralazon
             .connect(deployer)
-            .list(ID, NAME, CATEGORY, DESCRITION, IMAGE, COST, RATING, STOCK);
+            .list(NAME, CATEGORY, DESCRITION, IMAGE, COST, RATING, STOCK);
           await transaction.wait();
         });
 
@@ -74,7 +74,7 @@ const STOCK = 5;
         beforeEach(async () => {
           transaction = await decentralazon
             .connect(deployer)
-            .list(ID, NAME, CATEGORY, DESCRITION, IMAGE, COST, RATING, STOCK);
+            .list(NAME, CATEGORY, DESCRITION, IMAGE, COST, RATING, STOCK);
           await transaction.wait();
 
           //   Buy item
@@ -117,7 +117,7 @@ const STOCK = 5;
           // Add product
           transaction = await decentralazon
             .connect(deployer)
-            .list(ID, NAME, CATEGORY, DESCRITION, IMAGE, COST, RATING, STOCK);
+            .list(NAME, CATEGORY, DESCRITION, IMAGE, COST, RATING, STOCK);
           await transaction.wait();
 
           //   Buy item

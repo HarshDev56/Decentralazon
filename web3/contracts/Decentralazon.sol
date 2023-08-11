@@ -19,7 +19,7 @@ contract Decentralazon {
         uint256 time;
         Item item;
     }
-
+    uint256 private s_numberOfProducts = 0;
     mapping(uint256 => Item) public items;
     mapping(address => uint256) public orderCount;
     mapping(address => mapping(uint256 => Order)) public orders;
@@ -40,7 +40,6 @@ contract Decentralazon {
     }
 
     function list(
-        uint256 _id,
         string memory _name,
         string memory _category,
         string memory _description,
@@ -50,6 +49,7 @@ contract Decentralazon {
         uint256 _stock
     ) public onlyOwner {
         // create a item struct
+        uint256 _id = s_numberOfProducts + 1;
         Item memory item = Item(
             _id,
             _name,
@@ -62,7 +62,7 @@ contract Decentralazon {
         );
         // save item struct on blockchain
         items[_id] = item;
-
+        s_numberOfProducts++;
         // Emit event
         emit List(_name, _cost, _stock);
     }
@@ -82,6 +82,10 @@ contract Decentralazon {
         items[_id].stock = item.stock - 1;
 
         emit Buy(msg.sender, orderCount[msg.sender], item.id);
+    }
+
+    function getTotalProduct() public view returns (uint256) {
+        return s_numberOfProducts;
     }
 
     function withdraw() public onlyOwner {

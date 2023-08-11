@@ -1,6 +1,5 @@
 import star_regular from "../assets/star-regular.svg";
 import star_solid from "../assets/star-solid.svg";
-
 const Rating = ({ value }) => {
   return (
     <div className="rating">
