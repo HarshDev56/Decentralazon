@@ -14,7 +14,9 @@ function App() {
   const [decentralazon, setDecentralazon] = useState(null);
   const [owner, setOwner] = useState(null);
   const [upload, setUpload] = useState(false);
+  const [toggleProductDetails, setToggleProductDetails] = useState(false);
   const [itemsab, setItemsab] = useState(null);
+  const [clickedItem, setClickedItem] = useState(null);
 
   const loadBlockchainData = async () => {
     const provider = new ethers.BrowserProvider(window.ethereum);
@@ -47,10 +49,16 @@ function App() {
   const toggleUpload = () => {
     upload ? setUpload(false) : setUpload(true);
   };
+  const toggleProduct = (item) => {
+    setClickedItem(item);
+    toggleProductDetails
+      ? setToggleProductDetails(false)
+      : setToggleProductDetails(true);
+  };
 
   useEffect(() => {
     loadBlockchainData();
-  }, []);
+  }, [upload]);
 
   return (
     <div>
@@ -62,10 +70,7 @@ function App() {
       />
       <h2>Welcome to Decentralazon</h2>
       {itemsab != null && itemsab.length > 0 && (
-        <Section
-          items={itemsab}
-          // togglePop={togglePop}
-        />
+        <Section items={itemsab} toggleProduct={toggleProduct} />
       )}
 
       {upload && (
@@ -73,6 +78,15 @@ function App() {
           toggleUpload={toggleUpload}
           decentralazon={decentralazon}
           provider={provider}
+        />
+      )}
+      {toggleProductDetails && (
+        <Product
+          clickedItem={clickedItem}
+          toggleProduct={toggleProduct}
+          provider={provider}
+          account={account}
+          decentralazon={decentralazon}
         />
       )}
     </div>

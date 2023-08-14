@@ -273,6 +273,8 @@ nav {
 .product__overview hr,
 .product__overview .rating {
   margin: 10px auto;
+  flex: 1;
+  display: flex;
 }
 
 .product__overview ul {
@@ -281,7 +283,7 @@ nav {
 
 .product__order {
   max-width: 300px;
-  height: 90%;
+  height: "auto";
 
   border: 1px solid var(--clr-grey);
   padding: 20px;

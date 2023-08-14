@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 import Rating from "./Rating";
 import { options } from "../constants";
 
-const Section = ({ title, items }) => {
+const Section = ({ title, items, toggleProduct }) => {
   // Group items by category
   const groupedItems = {};
 
@@ -25,7 +25,13 @@ const Section = ({ title, items }) => {
 
           <div className="cards">
             {groupedItems[category].map((item, itemIndex) => (
-              <div key={itemIndex} className="card">
+              <div
+                key={itemIndex}
+                className="card"
+                onClick={() => {
+                  toggleProduct(item);
+                }}
+              >
                 <div className="card__image">
                   <img src={item.image} alt="Item" />
                 </div>

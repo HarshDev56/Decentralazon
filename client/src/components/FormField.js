@@ -34,7 +34,7 @@ const FormField = ({
           value={value}
           onChange={handleChange}
           type={inputType}
-          step="0.1"
+          step={LabelName == "Stock *" ? "1.0" : "0.1"}
           min="0"
           maxLength={maxLength}
           placeholder={placeholder}

@@ -53,7 +53,7 @@ const UploadProduct = ({ toggleUpload, decentralazon, provider }) => {
           );
         await transaction.wait();
         setIsLoading(false);
-        toggleUpload = false;
+        toggleUpload();
       } catch (error) {
         console.log(error);
         setIsLoading(false);
